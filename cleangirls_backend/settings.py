@@ -85,33 +85,24 @@ WSGI_APPLICATION = 'cleangirls_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 if os.environ.get('RENDER'):
     # ==========================================
-    # CONFIGURATION PRODUCTION (RENDER / SUPABASE)
+    # CONFIGURATION PRODUCTION (RENDER -> SUPABASE)
     # ==========================================
-    
-    # Encodage strict du mot de passe pour éviter toute erreur de parsing dans l'URL
-    SUPABASE_PASSWORD = quote("yzC8U3M5#f-4f%Z", safe='')
-    SUPABASE_POOLER_HOST = "aws-0-eu-central-1.pooler.supabase.com"
-    
-    # URI Supabase IPv4
-    DEFAULT_DB_URL = f"postgresql://postgres.hpdrikswhoymbanuhhfc:{SUPABASE_PASSWORD}@{SUPABASE_POOLER_HOST}:5432/postgres"
-    
-    DATABASE_URL = os.environ.get('DATABASE_URL', DEFAULT_DB_URL)
-    
     DATABASES = {
-        'default': dj_database_url.parse(
-            DATABASE_URL,
-            conn_max_age=600,
-            ssl_require=False
-        )
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres.hpdrikswhoymbanuhhfc',
+            'PASSWORD': 'yzC8U3M5#f-4f%Z',  # Mot de passe brut (pas besoin d'encodage URL)
+            'HOST': 'aws-0-eu-central-1.pooler.supabase.com',  # Pooler IPv4 Supabase
+            'PORT': '5432',
+            'CONN_MAX_AGE': 600,
+        }
     }
 else:
     # ==========================================
-    # CONFIGURATION LOCALE (WINDOWS / MYSQL)
+    # CONFIGURATION LOCALE (WINDOWS -> MYSQL)
     # ==========================================
     DATABASES = {
         'default': {
@@ -126,7 +117,6 @@ else:
             }
         }
     }
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
