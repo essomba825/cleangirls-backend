@@ -87,17 +87,17 @@ WSGI_APPLICATION = 'cleangirls_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 if os.environ.get('RENDER'):
     # ==========================================
-    # CONFIGURATION PRODUCTION (RENDER -> SUPABASE)
+    # CONFIGURATION PRODUCTION (RENDER -> SUPABASE POOLER)
     # ==========================================
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'postgres',
             'USER': 'postgres.hpdrikswhoymbanuhhfc',
-            'PASSWORD': 'yzC8U3M5#f-4f%Z',  # Mot de passe brut (pas besoin d'encodage URL)
-            'HOST': 'aws-0-eu-central-1.pooler.supabase.com',  # Pooler IPv4 Supabase
-            'PORT': '5432',
-            'CONN_MAX_AGE': 600,
+            'PASSWORD': 'yzC8U3M5#f-4f%Z',
+            'HOST': 'aws-0-eu-west-1.pooler.supabase.com',  # <-- La bonne région (Irlande)
+            'PORT': '6543',  # Port du pooler
+            'CONN_MAX_AGE': 0, 
         }
     }
 else:
