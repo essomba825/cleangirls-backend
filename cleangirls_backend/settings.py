@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'cleangirls_backend.wsgi.application'
 SUPABASE_PASSWORD = quote_plus("yzC8U3M5#f-4f%Z")
 
 # URI Supabase directe (PostgreSQL) SANS LES CROCHETS []
-SUPABASE_DB_URL = f"postgresql://postgres:{SUPABASE_PASSWORD}@db.hpdrikswhoymbanuhhfc.supabase.co:5432/postgres"
+SUPABASE_DB_URL = f"postgresql://postgres:[yzC8U3M5#f-4f%Z]@db.hpdrikswhoymbanuhhfc.supabase.co:5432/postgres"
 
 DATABASE_URL = os.environ.get('DATABASE_URL', SUPABASE_DB_URL)
 
