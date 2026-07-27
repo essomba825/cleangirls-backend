@@ -28,8 +28,14 @@ SECRET_KEY = 'django-insecure-col8l^)q&(d^dwcs43kz155y7vks0fz08dg7(vwh4s0q&^a7!^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
+# --- AJOUTE CE BLOC ---
+# Autorise les requêtes POST (comme le login) venant de ton domaine Render
+CSRF_TRUSTED_ORIGINS = [
+    "https://cleangirls-backend.onrender.com",
+]
 
 # Application definition
 
@@ -168,8 +174,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
