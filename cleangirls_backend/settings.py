@@ -85,14 +85,20 @@ WSGI_APPLICATION = 'cleangirls_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+# URI Supabase directe (PostgreSQL)
+SUPABASE_DB_URL = "postgresql://postgres:[yzC8U3M5#f-4f%Z]@db.hpdrikswhoymbanuhhfc.supabase.co:5432/postgres"
+
+DATABASE_URL = os.environ.get('DATABASE_URL', SUPABASE_DB_URL)
 
 if os.environ.get('RENDER') or DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.config(
             default=DATABASE_URL,
             conn_max_age=600,
-            ssl_require=False  # Supabase gère le SSL directement via le paramètre dans l'URL
+            ssl_require=False
         )
     }
 else:
