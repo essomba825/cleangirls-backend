@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 import dj_database_url
-from urllib.parse import quote_plus
+from urllib.parse import quote
 
 from pathlib import Path
 
@@ -88,16 +88,20 @@ WSGI_APPLICATION = 'cleangirls_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# URI Supabase directe (PostgreSQL)
-SUPABASE_PASSWORD = quote_plus("yzC8U3M5#f-4f%Z")
-
-# URI Supabase directe (PostgreSQL) SANS LES CROCHETS []
-SUPABASE_DB_URL = f"postgresql://postgres:[yzC8U3M5#f-4f%Z]@db.hpdrikswhoymbanuhhfc.supabase.co:5432/postgres"
-
-DATABASE_URL = os.environ.get('DATABASE_URL', SUPABASE_DB_URL)
-
-if os.environ.get('RENDER') or DATABASE_URL:
+if os.environ.get('RENDER'):
+    # ==========================================
+    # CONFIGURATION PRODUCTION (RENDER / SUPABASE)
+    # ==========================================
+    
+    # Encodage strict du mot de passe pour éviter toute erreur de parsing dans l'URL
+    SUPABASE_PASSWORD = quote("yzC8U3M5#f-4f%Z", safe='')
+    SUPABASE_POOLER_HOST = "aws-0-eu-central-1.pooler.supabase.com"
+    
+    # URI Supabase IPv4
+    DEFAULT_DB_URL = f"postgresql://postgres.hpdrikswhoymbanuhhfc:{SUPABASE_PASSWORD}@{SUPABASE_POOLER_HOST}:5432/postgres"
+    
+    DATABASE_URL = os.environ.get('DATABASE_URL', DEFAULT_DB_URL)
+    
     DATABASES = {
         'default': dj_database_url.parse(
             DATABASE_URL,
@@ -106,7 +110,9 @@ if os.environ.get('RENDER') or DATABASE_URL:
         )
     }
 else:
-    # Si nous sommes sur ton ordinateur (Local) -> Ton MySQL habituel
+    # ==========================================
+    # CONFIGURATION LOCALE (WINDOWS / MYSQL)
+    # ==========================================
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -120,7 +126,6 @@ else:
             }
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
