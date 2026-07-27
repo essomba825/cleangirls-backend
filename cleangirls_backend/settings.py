@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 import dj_database_url
+from urllib.parse import quote_plus
 
 from pathlib import Path
 
@@ -89,14 +90,17 @@ WSGI_APPLICATION = 'cleangirls_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # URI Supabase directe (PostgreSQL)
-SUPABASE_DB_URL = "postgresql://postgres:[yzC8U3M5#f-4f%Z]@db.hpdrikswhoymbanuhhfc.supabase.co:5432/postgres"
+SUPABASE_PASSWORD = quote_plus("yzC8U3M5#f-4f%Z")
+
+# URI Supabase directe (PostgreSQL) SANS LES CROCHETS []
+SUPABASE_DB_URL = f"postgresql://postgres:{SUPABASE_PASSWORD}@db.hpdrikswhoymbanuhhfc.supabase.co:5432/postgres"
 
 DATABASE_URL = os.environ.get('DATABASE_URL', SUPABASE_DB_URL)
 
 if os.environ.get('RENDER') or DATABASE_URL:
     DATABASES = {
-        'default': dj_database_url.config(
-            default=DATABASE_URL,
+        'default': dj_database_url.parse(
+            DATABASE_URL,
             conn_max_age=600,
             ssl_require=False
         )
