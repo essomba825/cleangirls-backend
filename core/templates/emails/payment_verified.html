@@ -1,0 +1,40 @@
+﻿{% extends "emails/base_email.html" %}
+{% block title %}Paiement confirmé 💳{% endblock %}
+{% block header_title %}Paiement vérifié !{% endblock %}
+
+{% block content %}
+    <p>Bonjour <strong>{{ owner_name }}</strong>,</p>
+    <p>Bonne nouvelle ! Votre paiement de <strong>{{ instance.amount_fcfa }} FCFA</strong> via <strong>{{ instance.operator }}</strong> a été vérifié avec succès.</p>
+
+    <div class="highlight-box">
+        🛒 Commande <strong>#{{ order.id }}</strong> — elle passe en préparation !
+    </div>
+
+    <table class="order-details">
+        <tr>
+            <td>Commande</td>
+            <td>#{{ order.id }}</td>
+        </tr>
+        <tr>
+            <td>Montant payé</td>
+            <td><strong>{{ instance.amount_fcfa }} FCFA</strong></td>
+        </tr>
+        <tr>
+            <td>Opérateur</td>
+            <td>{{ instance.operator }}</td>
+        </tr>
+        <tr>
+            <td>Téléphone débité</td>
+            <td>{{ instance.phone_debited }}</td>
+        </tr>
+    </table>
+
+    <p>Nous préparons votre colis avec soin. Vous serez avertie dès son expédition.</p>
+
+    <p style="text-align:center;">
+        <a href="{{ site_url }}/orders/{{ order.id }}" class="btn">📦 Suivre ma commande</a>
+    </p>
+
+    <p>Merci pour votre achat,</p>
+    <p><strong>L'équipe CleanGirls 💖</strong></p>
+{% endblock %}

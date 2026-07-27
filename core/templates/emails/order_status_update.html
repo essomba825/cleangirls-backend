@@ -1,0 +1,44 @@
+﻿{% extends "emails/base_email.html" %}
+{% block title %}Mise à jour de commande{% endblock %}
+{% block header_title %}Votre commande avance !{% endblock %}
+
+{% block content %}
+    <p>Bonjour <strong>{{ owner_name }}</strong>,</p>
+    <p>Votre commande <strong>#{{ order.id }}</strong> a été mise à jour.</p>
+
+    <div class="highlight-box">
+        🏷️ Nouveau statut : <strong>{{ status_label }}</strong>
+    </div>
+
+    {% if new_status == "SHIPPED" %}
+        <p>📦 Votre colis est en route ! Vous recevrez bientôt un suivi détaillé.</p>
+    {% elif new_status == "DELIVERED" %}
+        <p>🎉 Votre commande a été livrée ! Nous espérons que vous adorerez vos produits.</p>
+    {% elif new_status == "CANCELLED" %}
+        <p>😔 Votre commande a été annulée. Si cela n’était pas volontaire, contactez-nous rapidement.</p>
+    {% else %}
+        <p>Nous vous tiendrons informé(e) des prochaines étapes.</p>
+    {% endif %}
+
+    <table class="order-details">
+        <tr>
+            <td>Commande n°</td>
+            <td>#{{ order.id }}</td>
+        </tr>
+        <tr>
+            <td>Montant</td>
+            <td>{{ order.total_amount_fcfa }} FCFA</td>
+        </tr>
+        <tr>
+            <td>Statut</td>
+            <td>{{ status_label }}</td>
+        </tr>
+    </table>
+
+    <p style="text-align:center;">
+        <a href="{{ site_url }}/orders/{{ order.id }}" class="btn">🔍 Voir les détails</a>
+    </p>
+
+    <p>Merci de votre fidélité,</p>
+    <p><strong>L'équipe CleanGirls 💋</strong></p>
+{% endblock %}

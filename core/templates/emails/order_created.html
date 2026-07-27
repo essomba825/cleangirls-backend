@@ -1,0 +1,41 @@
+﻿{% extends "emails/base_email.html" %}
+{% block title %}Commande confirmée 🛍️{% endblock %}
+{% block header_title %}Merci pour votre commande !{% endblock %}
+
+{% block content %}
+    <p>Bonjour <strong>{{ owner_name }}</strong>,</p>
+    <p>Nous avons bien reçu votre commande <strong>#{{ order.id }}</strong> et nous vous en remercions !</p>
+
+    <div class="highlight-box">
+        📦 Votre commande est en attente de paiement. Nous confirmerons son traitement dès réception de votre règlement.
+    </div>
+
+    <table class="order-details">
+        <tr>
+            <td>Commande n°</td>
+            <td>#{{ order.id }}</td>
+        </tr>
+        <tr>
+            <td>Montant total</td>
+            <td><strong>{{ order.total_amount_fcfa }} FCFA</strong></td>
+        </tr>
+        <tr>
+            <td>Statut</td>
+            <td>🕐 En attente de règlement</td>
+        </tr>
+        {% if order.shipping_address %}
+        <tr>
+            <td>Adresse de livraison</td>
+            <td>{{ order.shipping_address }}</td>
+        </tr>
+        {% endif %}
+    </table>
+
+    <p style="text-align:center;">
+        <a href="{{ site_url }}/orders/{{ order.id }}" class="btn">📋 Suivre ma commande</a>
+    </p>
+
+    <p>Si vous avez des questions, n'hésitez pas à nous contacter.<br>
+    Merci de votre confiance,</p>
+    <p><strong>L'équipe CleanGirls 💄</strong></p>
+{% endblock %}

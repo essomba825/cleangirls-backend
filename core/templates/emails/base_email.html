@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CleanGirls{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fdf2f8;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #333333;
+        }
+        .email-wrapper {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .email-header {
+            background: linear-gradient(135deg, #f472b6, #ec4899);
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .email-header img {
+            height: 50px;
+        }
+        .email-header h1 {
+            color: #ffffff;
+            font-size: 22px;
+            margin: 10px 0 0;
+            font-weight: 600;
+        }
+        .email-body {
+            padding: 30px 25px;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        .email-body p {
+            margin: 0 0 16px;
+        }
+        .highlight-box {
+            background: #fce4ec;
+            border-left: 4px solid #ec4899;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        .btn {
+            display: inline-block;
+            background: #ec4899;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin: 15px 0 5px;
+        }
+        .order-details {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .order-details td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .order-details td:first-child {
+            font-weight: 600;
+            color: #666;
+        }
+        .email-footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+        }
+        .email-footer a {
+            color: #ec4899;
+            text-decoration: none;
+        }
+        .social-links img {
+            width: 24px;
+            margin: 0 6px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-header">
+            <!-- Remplace l'URL par celle de ton logo -->
+            <img src="https://tonsite.com/static/img/logo-white.png" alt="CleanGirls">
+            <h1>{% block header_title %}CleanGirls{% endblock %}</h1>
+        </div>
+        <div class="email-body">
+            {% block content %}{% endblock %}
+        </div>
+        <div class="email-footer">
+            <p>💄 <strong>CleanGirls</strong> – Cosmétiques & Beauté</p>
+            <p>
+                <a href="https://tonsite.com">Site</a> &nbsp;|&nbsp;
+                <a href="https://tonsite.com/contact">Contact</a>
+            </p>
+            <div class="social-links">
+                <a href="#"><img src="https://tonsite.com/static/img/icon-instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="https://tonsite.com/static/img/icon-facebook.png" alt="Facebook"></a>
+            </div>
+            <p style="font-size:12px; margin-top:12px;">
+                Vous recevez cet email car vous avez effectué une commande sur CleanGirls.<br>
+                Conformément à notre politique de confidentialité, nous ne partageons jamais vos données.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
