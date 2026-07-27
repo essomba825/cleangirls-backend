@@ -82,13 +82,17 @@ WSGI_APPLICATION = 'cleangirls_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-# Si nous sommes sur Render (la variable RENDER existe)
-if os.environ.get('RENDER'):
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if os.environ.get('RENDER') or DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
+            default=DATABASE_URL,
             conn_max_age=600,
-            ssl_require=True
+            ssl_require=False  # Supabase gère le SSL directement via le paramètre dans l'URL
         )
     }
 else:
