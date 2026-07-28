@@ -29,6 +29,13 @@ SECRET_KEY = 'django-insecure-col8l^)q&(d^dwcs43kz155y7vks0fz08dg7(vwh4s0q&^a7!^
 DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
+# settings.py
+CORS_ALLOWED_ORIGINS = [
+    "https://cleangirls.vercel.app",
+    "https://cleangirls-admin-ten.vercel.app",
+    "http://localhost:5173", # Pense à garder ton accès local pour le développement
+]
+# Autorise aussi l'envoi de cookies/tokens si tu en as besoin
 CORS_ALLOW_CREDENTIALS = True
 
 # --- AJOUTE CE BLOC ---
