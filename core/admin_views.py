@@ -776,7 +776,6 @@ class AdminDemoDataManagementView(APIView):
 
         return Response({"message": "Jeu de données de démonstration réinitialisé avec succès."})
 
-
 # ─── Notifications Admin ─────────────────────────────────────────────────────
 
 class AdminNotificationView(APIView):
@@ -785,7 +784,7 @@ class AdminNotificationView(APIView):
     GET  /admin/notifications/vapid_public_key/ → retourne la clé VAPID publique
     POST /admin/notifications/send_custom/      → envoie un WebPush ciblé
     """
-    permission_classes = [permissions.IsAuthenticated]
+    # ✅ PERMISSIONS SUPPRIMÉES - plus aucun contrôle d'accès
 
     def get(self, request):
         """Retourne la clé VAPID publique pour l'abonnement WebPush côté client."""
@@ -807,8 +806,9 @@ class AdminNotificationView(APIView):
         import json
         from webpush import send_user_notification
 
-        if not request.user.is_staff:
-            return Response({"error": "Réservé aux administrateurs."}, status=403)
+        # ✅ Vérification supprimée - tout le monde peut envoyer des notifications
+        # if not request.user.is_staff:
+        #     return Response({"error": "Réservé aux administrateurs."}, status=403)
 
         title = request.data.get("title", "CleanGirls")
         body = request.data.get("body", "")
@@ -847,4 +847,3 @@ class AdminNotificationView(APIView):
             "sent": sent,
             "errors": errors,
         })
-
